@@ -10975,7 +10975,9 @@ namespace IDE
 											else if (options.mBuildOptions.mBuildKind == .StaticLib)
 												newString.Append(".a");
 										case .Wasm:
-											if (!newString.Contains('.'))
+											if (options.mBuildOptions.mBuildKind == .StaticLib)
+												newString.Append(".a");
+											else if (!newString.Contains('.'))
 												newString.Append(".html");
 										default:
 											if (options.mBuildOptions.mBuildKind == .DynamicLib)

@@ -1706,7 +1706,12 @@ namespace IDE
 
 			if (mPlatformType == .Wasm)
 			{
-				if (!QueueProjectWasmLink(project, targetPath, workspaceOptions, options, objectsArg))
+				if (options.mBuildOptions.mBuildKind == .StaticLib)
+				{
+					if (!QueueProjectGNUArchive(project, targetPath, workspaceOptions, options, objectsArg))
+						return false;
+				}
+				else if (!QueueProjectWasmLink(project, targetPath, workspaceOptions, options, objectsArg))
 					return false;
 			}
 			else if (workspaceOptions.mToolsetType == .GNU)
