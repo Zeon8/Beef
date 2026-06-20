@@ -14,15 +14,9 @@ PUSHD %~dp0..\
 mkdir stats
 :STATS_HAS
 
-@IF EXIST BeefDep3_Done.txt GOTO DEPS3_HAS
-@ECHO Downloading dependencies (LLVM)...
-bin\curl.exe -O https://www.beeflang.org/BeefDep3.zip
-@IF %ERRORLEVEL% NEQ 0 GOTO HADERROR
-@ECHO Extracting dependencies (takes a while)...
-bin\tar.exe -xf BeefDep3.zip
-@IF %ERRORLEVEL% NEQ 0 GOTO
-del BeefDep3.zip
-:DEPS3_HAS
+cd extern
+llvm_build.bat
+cd ..
 
 copy BeefLibs\SDL2\dist\SDL2.dll IDE\dist
 @IF %ERRORLEVEL% NEQ 0 GOTO HADERROR
